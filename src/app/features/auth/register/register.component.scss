@@ -1,0 +1,63 @@
+.register-container {
+    max-width: 350px;
+    margin: 100px auto;
+    padding: 2rem;
+    background-color: #fafafa;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  
+    h2 {
+      margin-bottom: 1.5rem;
+      color: #333;
+    }
+  
+    input {
+      display: block;
+      width: 100%;
+      margin: 0.75rem 0;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.2s;
+  
+      &:focus {
+        border-color: #28a745;
+        outline: none;
+      }
+    }
+  
+    button {
+      width: 100%;
+      margin-top: 1rem;
+      padding: 0.75rem;
+      background-color: #28a745;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease-in-out;
+  
+      &:hover {
+        background-color: #218838;
+      }
+    }
+  
+    .login-link {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: #555;
+  
+      a {
+        color: #28a745;
+        text-decoration: none;
+  
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+  
