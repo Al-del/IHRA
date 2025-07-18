@@ -1,0 +1,10 @@
+<div class="camera-container">
+  <video #video autoplay playsinline></video>
+  
+  <div class="buttons">
+    <button (click)="captureImage()">Capture Image</button>
+    <button (click)="toggleCamera()">Toggle Camera</button>
+  </div>
+
+  <img *ngIf="base64Image" [src]="base64Image" alt="Captured Image" />
+</div>

@@ -75,7 +75,14 @@
               "buildTarget": "IHRA:build:development"
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "host": "0.0.0.0",
+            "port": 4200,
+          "allowedHosts": [
+            "herring-social-happily.ngrok-free.app"
+          ]
+          },
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n"
