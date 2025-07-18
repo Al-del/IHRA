@@ -1,0 +1,23 @@
+<div *ngIf="recipes.length > 0; else noRecipes" class="recipe-container">
+  <h2>Recipes Found:</h2>
+  <div *ngFor="let recipe of recipes" class="recipe-card">
+    <img 
+      [src]="recipe.image" 
+      [alt]="recipe.title"
+      (error)="handleImageError(recipe)"
+      class="recipe-image"
+    >
+    <div class="recipe-content">
+      <h3>{{ recipe.title }}</h3>
+      <button (click)="addToMyList(recipe)" class="save-button">
+        Save Recipe
+      </button>
+    </div>
+  </div>
+</div>
+
+<ng-template #noRecipes>
+  <div class="no-recipes">
+    <p>No recipes found. Try scanning another image.</p>
+  </div>
+</ng-template>
