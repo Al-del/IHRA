@@ -1,15 +1,55 @@
+<app-header></app-header>
 <div class="register-container">
-  <h2>Create Account</h2>
+  <div class="register-card">
+    <div class="register-header">
+      <svg class="register-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="#78C841" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M8.5 11C10.7091 11 12.5 9.20914 12.5 7C12.5 4.79086 10.7091 3 8.5 3C6.29086 3 4.5 4.79086 4.5 7C4.5 9.20914 6.29086 11 8.5 11Z" stroke="#78C841" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M17 11L19 13L23 9" stroke="#78C841" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <h2>Create Your Account</h2>
+      <p class="register-subtitle">Join the IHRA community</p>
+    </div>
 
-  <input type="text" placeholder="Full Name" [(ngModel)]="name" />
-  <input type="email" placeholder="Email"      [(ngModel)]="email" />
-  <input type="password" placeholder="Password" [(ngModel)]="password" />
+    <form class="register-form">
+      <div class="input-group">
+        <input type="text" placeholder="Full Name" [(ngModel)]="name" name="name" required />
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M16 21V19C16 17.9391 15.5786 16.9217 14.8284 16.1716C14.0783 15.4214 13.0609 15 12 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M8.5 11C10.7091 11 12.5 9.20914 12.5 7C12.5 4.79086 10.7091 3 8.5 3C6.29086 3 4.5 4.79086 4.5 7C4.5 9.20914 6.29086 11 8.5 11Z" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
-  <button (click)="register()">Register</button>
+      <div class="input-group">
+        <input type="email" placeholder="Email Address" [(ngModel)]="email" name="email" required />
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M22 6L12 13L2 6" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
-  <p class="login-link">
-    Already have an account?
-    <a routerLink="/login">Login</a>
-  </p>
+      <div class="input-group">
+        <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required />
+        <svg class="input-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 15C13.6569 15 15 13.6569 15 12C15 10.3431 13.6569 9 12 9C10.3431 9 9 10.3431 9 12C9 13.6569 10.3431 15 12 15Z" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M19.4 15C19.2669 15.3016 19.227 15.6362 19.286 15.9606C19.3449 16.285 19.5001 16.5834 19.73 16.8133C19.9599 17.0432 20.2527 17.1936 20.572 17.2439C20.8913 17.2942 21.2206 17.2418 21.5133 17.0933C22.3356 16.6823 23.0303 16.0609 23.5252 15.2948C24.0201 14.5288 24.2968 13.6465 24.3267 12.74C24.3565 11.8335 24.1385 10.9357 23.6967 10.1383C23.2549 9.34098 22.6064 8.67305 21.82 8.20667C21.5273 8.05822 21.198 8.00582 20.8787 8.05611C20.5594 8.1064 20.2666 8.25681 20.0367 8.48667C19.8068 8.71652 19.6516 9.01497 19.5927 9.33936C19.5338 9.66374 19.5737 9.99836 19.7067 10.3" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M4.29333 15C4.42638 15.3016 4.46631 15.6362 4.40736 15.9606C4.34841 16.285 4.19322 16.5834 3.96333 16.8133C3.73344 17.0432 3.44069 17.1936 3.12136 17.2439C2.80203 17.2942 2.47274 17.2418 2.18 17.0933C1.3678 16.6875 0.680781 16.0698 0.190535 15.3119C-0.299711 14.554 -0.571423 13.6858 -0.593333 12.7933C-0.615244 11.9009 -0.386715 11.0201 0.0666667 10.24C0.520048 9.45995 1.16263 8.81083 1.92667 8.36667C2.21941 8.21822 2.5487 8.16582 2.86803 8.21611C3.18736 8.2664 3.48011 8.41681 3.71 8.64667C3.93989 8.87652 4.09508 9.17497 4.15403 9.49936C4.21298 9.82374 4.17305 10.1584 4.04 10.46" stroke="#B4E50D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
 
+
+
+      <button type="submit" class="register-button" (click)="register()">
+        Create Account
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+
+    <div class="login-cta">
+      Already have an account? <a routerLink="/login">Sign In</a>
+    </div>
+  </div>
 </div>
+<app-footer></app-footer>

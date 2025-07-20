@@ -9,11 +9,12 @@ import {
 import { isPlatformBrowser, CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router, RouterModule } from '@angular/router';
-
+import { HeaderComponent } from '../../shared/header/header.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, HttpClientModule, RouterModule], // Added RouterModule
+  imports: [CommonModule, HttpClientModule, RouterModule, HeaderComponent, FooterComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
@@ -103,7 +104,7 @@ export class HomeComponent implements OnInit {
       this.base64Image = canvas.toDataURL('image/png');
 
       // Send to backend
-      this.httpClient.post('https://barbados-hitachi-pittsburgh-doctrine.trycloudflare.com', {
+      this.httpClient.post('https://depot-sphere-netherlands-involving.trycloudflare.com', {
         base64_img: this.base64Image
       }).subscribe({
         next: (res) => {

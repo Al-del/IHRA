@@ -1,1 +1,19 @@
-<button (click)="go_to_LOGIN()">Ma arunc pe geam cu mult love <3</button>
+<app-header></app-header>
+
+<div class="welcome-screen">
+    <div class="welcome-card">
+      <header class="welcome-header">
+        <h1>Welcome to <span class="brand-name">IHRA</span></h1>
+        <p class="tagline">Your AI-powered health companion</p>
+      </header>
+      <div class="welcome-actions">
+        <button class="primary-button" (click)="go_to_LOGIN()">
+          Get Started
+          <svg class="button-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>

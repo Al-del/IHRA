@@ -3,8 +3,9 @@ import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Firestore, addDoc, collection, collectionData } from '@angular/fire/firestore';
 import { Auth, user } from '@angular/fire/auth';
+import { HeaderComponent } from '../../shared/header/header.component';
+import { FooterComponent } from '../../shared/footer/footer.component';
 import { Observable, take } from 'rxjs';
-
 interface Recipe {
   id: number;
   title: string;
@@ -13,6 +14,7 @@ interface Recipe {
   ingredients?: string[];
   instructions?: string[];
   savedAt?: Date;
+  calories? : number;
 }
 
 @Component({
@@ -20,7 +22,7 @@ interface Recipe {
   selector: 'app-show-recepies',
   templateUrl: './show-recepies.component.html',
   styleUrls: ['./show-recepies.component.scss'],
-  imports: [CommonModule, RouterModule]
+  imports: [CommonModule, RouterModule, HeaderComponent, FooterComponent]
 })
 export class ShowRecepiesComponent {
   private firestore: Firestore = inject(Firestore);
@@ -46,7 +48,6 @@ export class ShowRecepiesComponent {
     this.user$.pipe(take(1)).subscribe(async (user) => {
       if (user) {
         try {
-          // Add the recipe to Firestore
           const recipeWithTimestamp = {
             ...recipe,
             savedAt: new Date(),
@@ -62,7 +63,6 @@ export class ShowRecepiesComponent {
         }
       } else {
         console.warn('User not authenticated. Recipe not saved.');
-        // Optionally: redirect to login or show a message
       }
     });
   }
@@ -71,4 +71,5 @@ export class ShowRecepiesComponent {
     console.error('Failed to load image:', recipe.image);
     recipe.image = 'https://via.placeholder.com/312x231?text=Recipe+Image+Not+Available';
   }
+  
 }

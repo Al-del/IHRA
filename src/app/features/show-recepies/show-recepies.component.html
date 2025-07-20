@@ -1,5 +1,5 @@
-<div *ngIf="recipes.length > 0; else noRecipes" class="recipe-container">
-  <h2>Recipes Found:</h2>
+<app-header></app-header>
+<div class="recipe-container" *ngIf="recipes && recipes.length > 0; else noRecipes">
   <div *ngFor="let recipe of recipes" class="recipe-card">
     <img 
       [src]="recipe.image" 
@@ -7,10 +7,21 @@
       (error)="handleImageError(recipe)"
       class="recipe-image"
     >
+
     <div class="recipe-content">
-      <h3>{{ recipe.title }}</h3>
+      <h3 class="recipe-title">{{ recipe.title }}</h3>
+
+      <div *ngIf="recipe.ingredients?.length" class="ingredients-list">
+        <h4>Ingredients:</h4>
+        <ul>
+          <li *ngFor="let ingredient of recipe.ingredients">
+            {{ ingredient }}
+          </li>
+        </ul>
+      </div>
+
       <button (click)="addToMyList(recipe)" class="save-button">
-        Save Recipe
+        💾 Save Recipe
       </button>
     </div>
   </div>
@@ -18,6 +29,7 @@
 
 <ng-template #noRecipes>
   <div class="no-recipes">
-    <p>No recipes found. Try scanning another image.</p>
+    <p>No recipes found. Try capturing your fridge again! 🧊</p>
   </div>
 </ng-template>
+<app-footer></app-footer>

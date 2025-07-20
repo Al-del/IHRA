@@ -1,63 +1,182 @@
+// Color palette
+$primary-green: #78C841;
+$vibrant-green: #B4E50D;
+$accent-orange: #FF9B2F;
+$error-red: #FB4141;
+$dark-bg: #1e1e2f;
+$light-bg: #f8f9fa;
+$text-dark: #2d3748;
+$text-light: #f8f9fa;
+$border-color: rgba(0, 0, 0, 0.1);
+
+// Typography
+$font-stack: 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+
 .register-container {
-    max-width: 350px;
-    margin: 100px auto;
-    padding: 2rem;
-    background-color: #fafafa;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    text-align: center;
-  
-    h2 {
-      margin-bottom: 1.5rem;
-      color: #333;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: $light-bg;
+  padding: 2rem;
+}
+
+.register-card {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  padding: 2.5rem;
+  text-align: center;
+}
+
+.register-header {
+  margin-bottom: 2rem;
+
+  .register-icon {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    color: $text-dark;
+    font-size: 1.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+
+  .register-subtitle {
+    color: lighten($text-dark, 20%);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+}
+
+.register-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  position: relative;
+
+  input {
+    width: 100%;
+    padding: 0.875rem 1rem 0.875rem 2.75rem;
+    font-size: 0.95rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background-color: rgba($vibrant-green, 0.05);
+
+    &:focus {
+      border-color: $primary-green;
+      box-shadow: 0 0 0 3px rgba($primary-green, 0.2);
+      outline: none;
     }
-  
+
+    &::placeholder {
+      color: lighten($text-dark, 40%);
+    }
+  }
+
+  .input-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.terms-agreement {
+  margin: 0.5rem 0;
+  text-align: left;
+
+  .terms-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: lighten($text-dark, 20%);
+    font-size: 0.875rem;
+    cursor: pointer;
+
     input {
-      display: block;
-      width: 100%;
-      margin: 0.75rem 0;
-      padding: 0.75rem;
-      font-size: 1rem;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      transition: border-color 0.2s;
-  
-      &:focus {
-        border-color: #28a745;
-        outline: none;
-      }
+      accent-color: $primary-green;
+      flex-shrink: 0;
     }
-  
-    button {
-      width: 100%;
-      margin-top: 1rem;
-      padding: 0.75rem;
-      background-color: #28a745;
-      border: none;
-      border-radius: 8px;
-      color: white;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background-color 0.2s ease-in-out;
-  
+
+    a {
+      color: $primary-green;
+      text-decoration: none;
+      font-weight: 500;
+
       &:hover {
-        background-color: #218838;
-      }
-    }
-  
-    .login-link {
-      margin-top: 1.5rem;
-      font-size: 0.9rem;
-      color: #555;
-  
-      a {
-        color: #28a745;
-        text-decoration: none;
-  
-        &:hover {
-          text-decoration: underline;
-        }
+        text-decoration: underline;
       }
     }
   }
-  
+}
+
+.register-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.875rem;
+  background-color: $primary-green;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  &:hover {
+    background-color: darken($primary-green, 5%);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba($primary-green, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.login-cta {
+  margin-top: 1.5rem;
+  font-size: 0.875rem;
+  color: lighten($text-dark, 20%);
+
+  a {
+    color: $primary-green;
+    font-weight: 500;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .register-container {
+    padding: 1rem;
+  }
+
+  .register-card {
+    padding: 1.5rem;
+  }
+}

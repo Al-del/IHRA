@@ -1,1 +1,14 @@
-<p>header works!</p>
+<header class="app-header">
+  <div class="header-container">
+    <div class="header-logo">IHRA</div>
+    <nav class="header-nav">
+      <a (click)="go_to_LOGIN()">Start page</a>
+      <a (click) = "go_to_show()">See recepies</a>
+      <a href="https://github.com" >Github page</a>
+    </nav>
+    <div class="header-actions">
+      <button class="login-button" (click)="go_to_LOGIN()">Login</button>
+      <button class="signup-button" (click) = "go_to_Register()">Sign Up</button>
+    </div> 
+  </div>
+</header>

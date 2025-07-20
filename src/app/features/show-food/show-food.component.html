@@ -1,0 +1,176 @@
+<app-header></app-header>
+<div class="dashboard-container">
+  <div *ngIf="user$ | async as user; else notLoggedIn">
+    <div *ngIf="savedRecipes$ | async as recipes; else loading">
+      <div class="dashboard-header">
+        <h1 class="dashboard-title">Your Saved Recipes</h1>
+        <div class="dashboard-actions">
+          <button class="scan-button" routerLink="/scan">
+            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 7V5C3 3.89543 3.89543 3 5 3H7M21 7V5C21 3.89543 20.1046 3 19 3H17M7 21H5C3.89543 21 3 20.1046 3 19V17M17 21H19C20.1046 21 21 20.1046 21 19V17M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            Scan New Recipe
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="recipes.length > 0; else noRecipes" class="recipes-grid">
+        <div *ngFor="let recipe of recipes" class="recipe-card">
+          <div class="recipe-image-container">
+            <img 
+              [src]="recipe.image" 
+              [alt]="recipe.title"
+              (error)="handleImageError(recipe)"
+              class="recipe-image"
+            >
+            <div class="recipe-calories">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 8C16 6.66667 15.2 4 12 4C8.8 4 8 6.66667 8 8C8 9.33333 8.8 12 12 12C15.2 12 16 9.33333 16 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M18 8C18 12 15.6 20 12 20C8.4 20 6 12 6 8C6 4 8.4 4 12 4C15.6 4 18 4 18 8Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {{ recipe.calories || 'N/A' }}
+            </div>
+          </div>
+          
+          <div class="recipe-content">
+            <div class="recipe-header">
+              <h3 class="recipe-title">{{ recipe.title }}</h3>
+              <div class="recipe-meta">
+              </div>
+            </div>
+
+            <div *ngIf="recipe.ingredients?.length" class="recipe-ingredients">
+              <p><strong>Ingredients:</strong> {{ recipe.ingredients?.join(', ') }}</p>
+             <div class = "ingreds">
+              <p> Recepie:{{recipe.generatedRecipe}}</p>
+            </div>
+            </div>
+
+            <div class="recipe-actions">
+              <button class="action-button view-button" (click)="viewDetails(recipe)">
+                View Details
+              </button>
+              <button class="action-button workout-button" (click)="openWorkoutModal(recipe)">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M17 10H20M23 10H20M20 10V7M20 10V13M7 4L5 6M3 6L5 6M5 6L7 8M5 6L3 8M13 18L11 20M9 20L11 20M11 20L13 22M11 20L9 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Workout Time
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="workout-modal" *ngIf="selectedRecipe">
+  <div class="modal-container">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h2>Workout Estimator</h2>
+        <button class="modal-close" (click)="closeWorkoutModal()">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 18L18 6M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Age (years)</label>
+            <input type="number" [(ngModel)]="workoutForm.age" min="1" max="120" />
+          </div>
+          
+          <div class="form-group">
+            <label>Gender</label>
+            <select [(ngModel)]="workoutForm.gender">
+              <option value="">Select</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Height (cm)</label>
+            <input type="number" [(ngModel)]="workoutForm.height" min="100" max="250" />
+          </div>
+          
+          <div class="form-group">
+            <label>Weight (kg)</label>
+            <input type="number" [(ngModel)]="workoutForm.weight" min="30" max="300" step="0.1" />
+          </div>
+          
+          <div class="form-group">
+            <label>Heart Rate (bpm)</label>
+            <input type="number" [(ngModel)]="workoutForm.heartRate" min="40" max="200" />
+          </div>
+          
+          <div class="form-group">
+            <label>Body Temp (°C)</label>
+            <input type="number" [(ngModel)]="workoutForm.bodyTemp" min="35" max="42" step="0.1" />
+          </div>
+          
+          <div class="form-group full-width">
+            <label>Meal Calories</label>
+            <input type="number" [value]="getCaloriesNumber(selectedRecipe.calories)" disabled />
+          </div>
+        </div>
+
+        <div *ngIf="workoutResultMessage" class="workout-result">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12Z" stroke="currentColor" stroke-width="2"/>
+            <path d="M8 12L11 15L16 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p>{{ workoutResultMessage }}</p>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button class="modal-button calculate-button" (click)="calculateWorkout()">
+          Calculate Workout
+        </button>
+        <button class="modal-button cancel-button" (click)="closeWorkoutModal()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #noRecipes>
+  <div class="empty-state">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M9 5H15M12 5V3M12 21V19M9 19H15M3 12H5M19 12H21M5.6 18.4L7 17M17 17L18.4 18.4M18.4 5.6L17 7M7 7L5.6 5.6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>No Recipes Saved Yet</h3>
+    <p>Start by scanning your first recipe to get personalized recommendations</p>
+    <button class="scan-button" routerLink="/scan">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 7V5C3 3.89543 3.89543 3 5 3H7M21 7V5C21 3.89543 20.1046 3 19 3H17M7 21H5C3.89543 21 3 20.1046 3 19V17M17 21H19C20.1046 21 21 20.1046 21 19V17M3 12H21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      Scan Recipe
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #notLoggedIn>
+  <div class="auth-required">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 15C14.2091 15 16 13.2091 16 11C16 8.79086 14.2091 7 12 7C9.79086 7 8 8.79086 8 11C8 13.2091 9.79086 15 12 15ZM12 15C8.13401 15 5 18.134 5 22H19C19 18.134 15.866 15 12 15Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <h3>Authentication Required</h3>
+    <p>Please log in to view your saved recipes</p>
+    <a routerLink="/login" class="login-button">Login to Account</a>
+  </div>
+</ng-template>
+
+<ng-template #loading>
+  <div class="loading-state">
+    <div class="spinner"></div>
+    <p>Loading your recipes...</p>
+  </div>
+</ng-template>
+<app-footer></app-footer>

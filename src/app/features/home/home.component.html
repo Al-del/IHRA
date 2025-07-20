@@ -1,10 +1,20 @@
+<app-header></app-header>
+
 <div class="camera-container">
+  <h2>What's in your fridge?</h2>
+
   <video #video autoplay playsinline></video>
-  
+
   <div class="buttons">
-    <button (click)="captureImage()">Capture Image</button>
-    <button (click)="toggleCamera()">Toggle Camera</button>
+    <button class="capture-btn" (click)="captureImage()">📸 Capture Image</button>
+    <button class="toggle-btn" (click)="toggleCamera()">🔁 Toggle Camera</button>
   </div>
 
-  <img *ngIf="base64Image" [src]="base64Image" alt="Captured Image" />
+  <div class="preview" *ngIf="base64Image">
+    <h3>Preview</h3>
+    <img [src]="base64Image" alt="Captured Image" *ngIf="base64Image; else noImage" />
+    <ng-template #noImage><p>No image captured.</p></ng-template>
+  </div>
 </div>
+
+<app-footer></app-footer>
