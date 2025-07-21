@@ -61,9 +61,5 @@
    npm start
    ```
 
-## 🌍 Medii
-
-- **Development**: `http://localhost:4200`
-- **Production**: [Adresa serverului de producție]
 
 Proiect realizat cu ❤️ de Gheorghica Istrate David
