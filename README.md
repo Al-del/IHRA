@@ -1,59 +1,126 @@
-# IHRA
+# IHRA (Instant Healthy Recipe App) – Frontend
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.15.
+**Instant Healthy Recipe App (IHRA)** este o aplicație web modernă, creată cu **Angular + TypeScript** și utilizând **Server‑Side Rendering (SSR)** pentru performanță și SEO îmbunătățite. Scopul este de a simplifica deciziile alimentare, oferind rețete sănătoase generate automat pe baza ingredientelor disponibile.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🧩 Funcționalități principale
 
-```bash
-ng serve
-```
+- **Autentificare / înregistrare** a utilizatorilor
+- **Încărcare imagine** a frigiderului cu integrare API – analiza ingredientelor detectate
+- **Listă rețete** generate din ingrediente detectate
+- **Clasificare rețete** în funcție de sănătate și calorii
+- **Rețete salvate** – afișare calorii, estimare exercițiu necesar
+- **Vizualizare rețetă** – pași detaliați și calcul de efort fizic necesar
+- **SSR Angular** pentru încărcări rapide și indexare SEO
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Tehnologii utilizate
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Angular** (ultimele versiuni, ~v16) + **TypeScript**
+- **Angular Universal** pentru SSR
+- **RxJS** – gestionare asincronă și interacțiuni
+- **NgRx** (sau un alt state management) – pentru starea aplicației (autentificare, ingrediente, rețete)
+- **Angular Material** (sau alt design system) – UI modern
+- **HTTP Interceptors** – pentru token JWT, refresh automat
+- **Formulare reactive** – login, upload imagine
+- Integrare API REST/GraphQL – comunicare cu backend Flask
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📁 Structură proiect
 
-```bash
-ng generate --help
-```
+ihra-frontend/
+├── src/
+│ ├── app/
+│ │ ├── core/ # servicii generice, interceptori, token, routing
+│ │ ├── features/
+│ │ │ ├── auth/ # login/registrare
+│ │ │ ├── upload/ # upload imagine
+│ │ │ ├── recipes/ # listă + vizualizare rețetă + salvare calorii
+│ │ │ └── profile/ # setări și parametri biometrici
+│ │ ├── shared/ # componente UI (buton, card, loading etc.)
+│ ├── assets/
+│ ├── environments/ # dev/prod config
+│ └── main.ts
+│ ├── main.server.ts # punct intrare SSR
+├── angular.json
+├── package.json
+└── README.md
 
-## Building
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 🔧 Instalare și rulare local
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+1. Clonează repo frontend:
+   ```bash
+   git clone https://github.com/Al-del/IHRA_frontend.git
+   cd IHRA_frontend
 
-## Running unit tests
+    Instalează dependențe:
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+npm install
 
-```bash
-ng test
-```
+Rulează SSR în modul de dezvoltare:
 
-## Running end-to-end tests
+    npm run dev:ssr
 
-For end-to-end (e2e) testing, run:
+    – va porni server Express la http://localhost:4200.
 
-```bash
-ng e2e
-```
+Build pentru producție
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+npm run build:ssr
+npm run serve:ssr
 
-## Additional Resources
+– build static + server SSR la dist/.
+⚙️ Configurări de mediu
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+În src/environments/ configurează:
+
+    API_URL – URL backend Flask (ex. http://localhost:5000/api)
+
+    JWT_SECRET?, CLIENT_ID? – dacă folosești OAuth sau autentificare extinsă
+
+Adaugă variabile suplimentare după nevoie, p.ex. pentru Sentry, Cloudinary etc.
+📡 API Endpoints integrare
+
+Interfața frontend consultă următoarele endpointuri (definește în shared/interfaces):
+
+    POST /Auth/login, POST /Auth/register
+
+    POST /Images/upload → returnează lista ingredientelor detectate
+
+    GET /Recipes?ingredients=...
+
+    GET /Recipes/{id}
+
+    POST /Users/{id}/profile – salvează parametri (vârstă, greutate etc.)
+
+    GET /Users/{id}/recipes/saved
+
+🧪 Testare
+
+    Unit tests – Jasmine + Karma:
+
+npm run test
+
+E2E tests – Cypress:
+
+    npm run e2e
+
+Păstrează o acoperire minimă de 80%.
+🧭 Flux de dezvoltare
+
+    Creează un nou feature branch:
+
+git checkout -b feat/nume-funcționalitate
+
+La final push și PR către develop, urmat de review
+
+Merge în develop → pipeline CI/CD → build + test
+
+Pe main mergi doar după validare
+
+Deploy automat (Vercel, Netlify sau alt CI/CD internațional)
